@@ -44,6 +44,6 @@ try {
   console.log('DB not connected', error);
 }
 
-app.listen(PORT, IP, () => {
+export default app.listen(PORT, IP, () => {
   console.log(`Server listening on ${IP}:${PORT}`);
 });
