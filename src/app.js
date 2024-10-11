@@ -12,6 +12,7 @@ import { authenticateToken } from './middleware/auth.js';
 
 const app = express();
 
+const IP = process.env.IP || '::';
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -43,6 +44,6 @@ try {
   console.log('DB not connected', error);
 }
 
-export default app.listen(PORT | 3000, () => {
-  console.log(`Server listening on port ${PORT}`);
+app.listen(PORT, IP, () => {
+  console.log(`Server listening on ${IP}:${PORT}`);
 });
