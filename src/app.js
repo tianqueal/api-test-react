@@ -29,6 +29,23 @@ app.use('/me', authenticateToken, meRouter);
 // END POINT: posts
 app.use('/posts', authenticateToken, postRouter);
 
+// END POINT: health
+app.get('/health', async (_, res) => {
+  try {
+    await sequelize.authenticate();
+    res.status(200).json({
+      status: 'La API se está ejectando correctamente',
+      db: 'Conexión activa',
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'La API no se está ejecutando correctamente',
+      db: 'Conexión no activa',
+      error: error.message,
+    });
+  }
+});
+
 try {
   User.hasMany(Post, {
     foreignKey: 'userId',
