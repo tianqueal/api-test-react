@@ -8,8 +8,10 @@ router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    if (!email || !password) {
-      throw new Error('El (email) y la contraseña (password) son obligatorios');
+    if (!email || !password || !name) {
+      throw new Error(
+        'El (name), (email) y la contraseña (password) son obligatorios'
+      );
     }
 
     if (
