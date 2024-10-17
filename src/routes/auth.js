@@ -36,7 +36,13 @@ router.post('/register', async (req, res) => {
       throw new Error('El (email) ya está en uso');
     }
 
-    const newUser = await authService.register({ name, email, password });
+    const { dataValues } = await authService.register({
+      name,
+      email,
+      password,
+    });
+
+    const { password: _, ...newUser } = dataValues;
     res.status(201).json(newUser);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -45,13 +51,15 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, rememberMe } = req.body;
 
     if (!email || !password) {
       throw new Error('El email y la contraseña (password) son obligatorios');
     }
 
-    res.status(200).json(await authService.login(email, password));
+    res
+      .status(200)
+      .json(await authService.login({ email, password }));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
