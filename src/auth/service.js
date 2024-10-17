@@ -33,7 +33,7 @@ const login = async ({ email, password, rememberMe }) => {
     expiresIn: rememberMe === 'true' ? '30d' : '1h',
   });
 
-  return { token, rememberMe };
+  return { token };
 };
 
 export const authService = {

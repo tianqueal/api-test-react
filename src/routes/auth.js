@@ -57,7 +57,9 @@ router.post('/login', async (req, res) => {
       throw new Error('El email y la contraseña (password) son obligatorios');
     }
 
-    res.status(200).json(await authService.login({ email, password }));
+    res
+      .status(200)
+      .json(await authService.login({ email, password, rememberMe }));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
