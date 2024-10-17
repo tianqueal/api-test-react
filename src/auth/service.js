@@ -30,10 +30,10 @@ const login = async ({ email, password, rememberMe }) => {
   }
 
   const token = jwt.sign({ user }, SECRET_KEY, {
-    expiresIn: !rememberMe ? '1h' : undefined,
+    expiresIn: rememberMe === 'true' ? '30d' : '1h',
   });
 
-  return { token };
+  return { token, rememberMe };
 };
 
 export const authService = {
