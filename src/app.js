@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import cors from 'cors';
+
 import meRouter from './routes/me.js';
 import postRouter from './routes/posts.js';
 import authRouter from './routes/auth.js';
@@ -11,6 +13,8 @@ import { Post } from './posts/entities/Post.entity.js';
 import { authenticateToken } from './middleware/auth.js';
 
 const app = express();
+
+app.use(cors());
 
 const IP = process.env.IP || '::';
 const PORT = process.env.PORT || 3000;
