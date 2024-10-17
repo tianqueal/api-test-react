@@ -28,7 +28,10 @@ const login = async (email, password) => {
   }
 
   const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '24h' });
-  return { token };
+
+  const { password: _, ...userWithoutPassword } = user.dataValues;
+
+  return { token, user: userWithoutPassword };
 };
 
 export const authService = {

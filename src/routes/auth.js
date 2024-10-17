@@ -45,12 +45,13 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    if (!req.body.email || !req.body.password) {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
       throw new Error('El email y la contraseña (password) son obligatorios');
     }
-    const { email, password } = req.body;
-    const { token } = await authService.login(email, password);
-    res.status(200).json({ token });
+
+    res.status(200).json(await authService.login(email, password));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
